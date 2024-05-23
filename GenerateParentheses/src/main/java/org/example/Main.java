@@ -7,9 +7,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Let's backtrack");
         List<String> result = new ArrayList<>();
-
-        generateParenthesis(3,0,0,"",result);
-
+        if(args.length == 1){
+            generateParenthesis(Integer.parseInt(args[0]),0,0,"",result);
+        }else{
+            generateParenthesis(3,0,0,"",result);
+        }
         System.out.println("The output of the generateParanthesis is : "+ result);
     }
 
