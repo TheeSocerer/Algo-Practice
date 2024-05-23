@@ -2,30 +2,43 @@ package org.example;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-
-//    @AfterEach
-//    public void tearDown() {
-//        System.setOut(standardOut);
-//        System.setIn(standardIn);
-//    }
     @Test
-    public void TestGenerateParanthesis(){
-        Main.main(new String[]{"3"});
-        String actual = outputStreamCaptor.toString().trim();
+    public void testGenerateParenthesis_n3() {
+        List<String> expected = new ArrayList<>();
+        Main m = new Main();
+        expected.add("((()))");
+        expected.add("(()())");
+        expected.add("(())()");
+        expected.add("()(())");
+        expected.add("()()()");
 
-        Assert.assertEquals(actual,"Let's backtrack\nThe output of the generateParanthesis is : [((())), (()()), (())(), ()(()), ()()()]");
+        List<String> result = m.generate(3);
+        Assert.assertEquals(expected, result);
     }
 
+    @Test
+    public void testGenerateParenthesis_n2() {
+        List<String> expected = new ArrayList<>();
+        Main m = new Main();
+        expected.add("(())");
+        expected.add("()()");
+
+        List<String> result = m.generate(2);
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void testGenerateParenthesis_n1() {
+        List<String> expected = new ArrayList<>();
+        Main m = new Main();
+        expected.add("()");
+
+        List<String> result = m.generate(1);
+        Assert.assertEquals(expected, result);
+    }
 }
