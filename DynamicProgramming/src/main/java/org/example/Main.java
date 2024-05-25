@@ -82,5 +82,24 @@ public class Main {
         return false;
     }
 
+    public List<Integer> howSum(int targetSum, int[] numbers){
+        if(targetSum == 0){
+            return new ArrayList<>();
+        }
+        if(targetSum<0){
+            return null;
+        }
 
+        for(int i: numbers){
+            int remainder = targetSum - i;
+
+            List<Integer> remainderResult = howSum(remainder,numbers);
+            if(remainderResult != null){
+                remainderResult.add(i);
+                return remainderResult;
+            }
+
+        }
+        return null;
+    }
 }
