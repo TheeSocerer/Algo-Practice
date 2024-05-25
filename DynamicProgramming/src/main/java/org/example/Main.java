@@ -14,20 +14,31 @@ public class Main {
         System.out.println("Hello world!");
         Main dp = new Main();
         Hashtable<String, Integer> gridTraveller = new Hashtable<>();
-//        System.out.println("The fib of 8 is " +dp.fib(50,new Hashtable<>()));
-//        System.out.println("You can travel using this many paths " +dp.gridTraveller(16,16,gridTraveller));
+        System.out.println("This is the Fibonnaci");
+        System.out.println("The fib of 8 is " +dp.fib(50,new Hashtable<>()));
 
-//        Hashtable<Integer, Boolean> canSum = new Hashtable<>();
-//        System.out.println(dp.canSum(9,new int[]{2,4,2,6}, canSum));
-//        System.out.println(dp.canSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
-//        System.out.println(dp.canSum(10102,new int[]{3,4,2,1}, new Hashtable<>()) );
-//        System.out.println(dp.canSum(1,new int[]{2,4,2,3}, new Hashtable<>()) );
+        System.out.println("This is the Grid Traveller");
+        System.out.println("You can travel using this many paths " +dp.gridTraveller(16,16,gridTraveller));
 
+        System.out.println("This is the CANSUM combination");
+        Hashtable<Integer, Boolean> canSum = new Hashtable<>();
+        System.out.println(dp.canSum(9,new int[]{2,4,2,6}, canSum));
+        System.out.println(dp.canSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
+        System.out.println(dp.canSum(10102,new int[]{3,4,2,1}, new Hashtable<>()) );
+        System.out.println(dp.canSum(1,new int[]{2,4,2,3}, new Hashtable<>()) );
 
-        System.out.println(dp.howSum(9,new int[]{2,4,2,6}));
-        System.out.println(dp.howSum(11,new int[]{5,4,2,3}) );
-        System.out.println(dp.howSum(10,new int[]{3,4,2,1}) );
-        System.out.println(dp.howSum(1,new int[]{2,4,2,3}) );
+        System.out.println("This is the HOWSUM combination");
+        System.out.println(dp.howSum(9,new int[]{2,4,2,6},new Hashtable<>()));
+        System.out.println(dp.howSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
+        System.out.println(dp.howSum(10,new int[]{3,4,2,1},new Hashtable<>()) );
+        System.out.println(dp.howSum(1,new int[]{2,4,2,3},new Hashtable<>()) );
+
+        System.out.println("This is the BESTSUM combination");
+        System.out.println(dp.bestSum(9,new int[]{2,4,2,6}));
+        System.out.println(dp.bestSum(11,new int[]{5,4,2,3}) );
+        System.out.println(dp.bestSum(10,new int[]{3,4,2,1}) );
+        System.out.println(dp.bestSum(1,new int[]{2,4,2,3}) );
+
 
     }
 
@@ -81,8 +92,21 @@ public class Main {
         memo.put(targetSum, true);
         return false;
     }
-
-    public List<Integer> howSum(int targetSum, int[] numbers){
+    /**
+     * m = targetSum
+     * n = array lenth
+     *
+     * O(n^m*m) time
+     * O(m) space
+     *
+     * after memoization
+     * O(n*m^2)
+     * O(m^2)
+     **/
+    public List<Integer> howSum(int targetSum, int[] numbers,Hashtable<Integer,List<Integer>> memo){
+        if(memo.containsKey(targetSum)){
+            return memo.get(targetSum);
+        }
         if(targetSum == 0){
             return new ArrayList<>();
         }
@@ -93,13 +117,35 @@ public class Main {
         for(int i: numbers){
             int remainder = targetSum - i;
 
-            List<Integer> remainderResult = howSum(remainder,numbers);
+            List<Integer> remainderResult = howSum(remainder,numbers,memo);
             if(remainderResult != null){
                 remainderResult.add(i);
+                memo.put(remainder,remainderResult);
                 return remainderResult;
             }
 
         }
         return null;
     }
+    public List<Integer> bestSum(int targetSum, int[] numbers){
+        if(targetSum==0){
+            return new ArrayList<>();
+        }
+        if(targetSum < 0){
+            return null;
+        }
+        List<Integer> shortestCombination = null;
+        for(int i: numbers){
+            int remainder = targetSum -i;
+            List<Integer> remainderResult = bestSum(remainder,numbers);
+            if(remainderResult != null){
+                remainderResult.add(i);
+                if(shortestCombination == null || remainderResult.size() < shortestCombination.size()){
+                    shortestCombination = remainderResult;
+                }
+            }
+        }
+        return shortestCombination;
+    }
+
 }
