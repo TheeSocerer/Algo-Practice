@@ -11,33 +11,38 @@ import java.util.List;
 //O(m)
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-        Main dp = new Main();
-        Hashtable<String, Integer> gridTraveller = new Hashtable<>();
-        System.out.println("This is the Fibonnaci");
-        System.out.println("The fib of 8 is " +dp.fib(50,new Hashtable<>()));
+//        System.out.println("Hello world!");
+//        Main dp = new Main();
+//        Hashtable<String, Integer> gridTraveller = new Hashtable<>();
+//        System.out.println("This is the Fibonnaci");
+//        System.out.println("The fib of 8 is " +dp.fib(50,new Hashtable<>()));
+//
+//        System.out.println("This is the Grid Traveller");
+//        System.out.println("You can travel using this many paths " +dp.gridTraveller(16,16,gridTraveller));
+//
+//        System.out.println("This is the CANSUM combination");
+//        Hashtable<Integer, Boolean> canSum = new Hashtable<>();
+//        System.out.println(dp.canSum(9,new int[]{2,4,2,6}, canSum));
+//        System.out.println(dp.canSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
+//        System.out.println(dp.canSum(10102,new int[]{3,4,2,1}, new Hashtable<>()) );
+//        System.out.println(dp.canSum(1,new int[]{2,4,2,3}, new Hashtable<>()) );
+//
+//        System.out.println("This is the HOWSUM combination");
+//        System.out.println(dp.howSum(9,new int[]{2,4,2,6},new Hashtable<>()));
+//        System.out.println(dp.howSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
+//        System.out.println(dp.howSum(10,new int[]{3,4,2,1},new Hashtable<>()) );
+//        System.out.println(dp.howSum(1,new int[]{2,4,2,3},new Hashtable<>()) );
+//
+//        System.out.println("This is the BESTSUM combination");
+//        System.out.println(dp.bestSum(9,new int[]{2,4,2,6}));
+//        System.out.println(dp.bestSum(11,new int[]{5,4,2,3}) );
+//        System.out.println(dp.bestSum(10,new int[]{3,4,2,1}) );
+//        System.out.println(dp.bestSum(1,new int[]{2,4,2,3}) );
 
-        System.out.println("This is the Grid Traveller");
-        System.out.println("You can travel using this many paths " +dp.gridTraveller(16,16,gridTraveller));
-
-        System.out.println("This is the CANSUM combination");
-        Hashtable<Integer, Boolean> canSum = new Hashtable<>();
-        System.out.println(dp.canSum(9,new int[]{2,4,2,6}, canSum));
-        System.out.println(dp.canSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
-        System.out.println(dp.canSum(10102,new int[]{3,4,2,1}, new Hashtable<>()) );
-        System.out.println(dp.canSum(1,new int[]{2,4,2,3}, new Hashtable<>()) );
-
-        System.out.println("This is the HOWSUM combination");
-        System.out.println(dp.howSum(9,new int[]{2,4,2,6},new Hashtable<>()));
-        System.out.println(dp.howSum(11,new int[]{5,4,2,3},new Hashtable<>()) );
-        System.out.println(dp.howSum(10,new int[]{3,4,2,1},new Hashtable<>()) );
-        System.out.println(dp.howSum(1,new int[]{2,4,2,3},new Hashtable<>()) );
-
-        System.out.println("This is the BESTSUM combination");
-        System.out.println(dp.bestSum(9,new int[]{2,4,2,6}));
-        System.out.println(dp.bestSum(11,new int[]{5,4,2,3}) );
-        System.out.println(dp.bestSum(10,new int[]{3,4,2,1}) );
-        System.out.println(dp.bestSum(1,new int[]{2,4,2,3}) );
+        CanConstruct c = new CanConstruct();
+        System.out.println(c.doCanConstruct("abcdef",new String[]{"ab","abc","cd","def","abcd"}));
+        System.out.println(c.doCanConstruct("skateboard",new String[]{"bo","rd","ate","t","ska","sk","boar"}));
+        System.out.println(c.doCanConstruct("enterapotentpot",new String[]{"a","p","ent","enter","ot","o","t"}));
 
 
     }
@@ -71,6 +76,8 @@ public class Main {
         return memo.get(key);
     }
 
+    //Can you do it? yes/no
+    // Decision problem
     public boolean canSum(int targetSum, int[] numbers, Hashtable<Integer, Boolean> memo){
         if(memo.containsKey(targetSum)){
             return memo.get(targetSum);
@@ -103,6 +110,9 @@ public class Main {
      * O(n*m^2)
      * O(m^2)
      **/
+
+    //how will you do it?
+    //Combination problem
     public List<Integer> howSum(int targetSum, int[] numbers,Hashtable<Integer,List<Integer>> memo){
         if(memo.containsKey(targetSum)){
             return memo.get(targetSum);
@@ -127,6 +137,21 @@ public class Main {
         }
         return null;
     }
+
+    /**
+     * m = targetSum
+     * n = array lenth
+     *
+     * O(n^m*m) time
+     * O(m) space
+     *
+     * after memoization
+     * O(n*m^2)
+     * O(m^2)
+     **/
+
+    //What is the 'best' way to do it?
+    //Optimization problem
     public List<Integer> bestSum(int targetSum, int[] numbers){
         if(targetSum==0){
             return new ArrayList<>();
