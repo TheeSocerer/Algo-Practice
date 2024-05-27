@@ -40,9 +40,29 @@ public class Main {
 //        System.out.println(dp.bestSum(1,new int[]{2,4,2,3}) );
 
         CanConstruct c = new CanConstruct();
-        System.out.println(c.doCanConstruct("abcdef",new String[]{"ab","abc","cd","def","abcd"}));
-        System.out.println(c.doCanConstruct("skateboard",new String[]{"bo","rd","ate","t","ska","sk","boar"}));
+        System.out.println("CanConstruct Brute Force");
+        System.out.println(c.doCountConstruct("abcdef",new String[]{"ab","abc","cd","def","abcd"}));
+        System.out.println(c.doCountConstruct("skateboard",new String[]{"bo","rd","ate","t","ska","sk","boar"}));
         System.out.println(c.doCanConstruct("enterapotentpot",new String[]{"a","p","ent","enter","ot","o","t"}));
+        System.out.println(c.doCountConstructMemo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeef",new String[]{
+                "e",
+                "ee",
+                "eee",
+                "eeee",
+                "eeeee",
+                "eeeeeee"}, new Hashtable<>()));
+        System.out.println("CanConstruct After Memo");
+
+        System.out.println(c.doCanConstructMemo("abcdef",new String[]{"ab","abc","cd","def","abcd"},new Hashtable<>()));
+        System.out.println(c.doCanConstructMemo("skateboard",new String[]{"bo","rd","ate","t","ska","sk","boar"},new Hashtable<>()));
+        System.out.println(c.doCanConstructMemo("enterapotentpot",new String[]{"a","p","ent","enter","ot","o","t"},new Hashtable<>()));
+        System.out.println(c.doCanConstructMemo("eeeeeeeeeeeeeeeeeeeeeeeeeeeeef",new String[]{
+                "e",
+                "ee",
+                "eee",
+                "eeee",
+                "eeeee",
+                "eeeeeee"},new Hashtable<>()));
 
 
     }
