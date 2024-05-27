@@ -1,6 +1,9 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.List;
 
 public class CanConstruct {
 
@@ -91,20 +94,20 @@ public class CanConstruct {
         }
         return count;
     }
-    public String[] doAllConstructMemo(String target, String[] words, Hashtable<String,String[]> memo){
-        if(memo.containsKey(target)){
-            return memo.get(target);
-        }
+    public List<List<String>> doAllConstructMemo(String target, String[] words){
+
         if(target.isEmpty()){
-            return 1;
+            return new ArrayList<>();
         }
-        int count = 0;
         for (String word : words) {
             if (target.startsWith(word)) {
                 String suffix = target.substring(word.length());
-                int numOfWays = doAllConstructMemo(suffix, words, memo);
-                memo.put(target,numOfWays);
-                count += numOfWays;
+                List<List<String>> suffixWays = doAllConstructMemo(suffix, words);
+                for (List<String> innerList : suffixWays) {
+                    List<String> modifiedInnerList = new ArrayList<>(innerList); // Copy the inner list
+                    modifiedInnerList.add(0, "pig"); // Add "pig" as the first element
+                    modifiedLists.add(modifiedInnerList);
+                }
             }
         }
         return count;
