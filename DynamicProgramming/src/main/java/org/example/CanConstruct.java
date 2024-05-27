@@ -83,6 +83,7 @@ public class CanConstruct {
         if(target.isEmpty()){
             return 1;
         }
+
         int count = 0;
         for (String word : words) {
             if (target.startsWith(word)) {
@@ -99,17 +100,37 @@ public class CanConstruct {
         if(target.isEmpty()){
             return new ArrayList<>();
         }
+        List<List<String>> result = new ArrayList<>();
         for (String word : words) {
             if (target.startsWith(word)) {
                 String suffix = target.substring(word.length());
+                System.out.println(suffix);
                 List<List<String>> suffixWays = doAllConstructMemo(suffix, words);
-                for (List<String> innerList : suffixWays) {
-                    List<String> modifiedInnerList = new ArrayList<>(innerList); // Copy the inner list
-                    modifiedInnerList.add(0, "pig"); // Add "pig" as the first element
-                    modifiedLists.add(modifiedInnerList);
-                }
+
+                List<List<String>> targetWays = addPrefix(suffixWays,word,target);
+                System.out.println(targetWays);
+
+                result.addAll(targetWays);
+
+
             }
         }
-        return count;
+        return result;
+    }
+    private List<List<String>> addPrefix(List<List<String>> suffixWays, String word, String target){
+        List<List<String>> modifiedLists = new ArrayList<>();
+        if(suffixWays){
+            List<String> r = new ArrayList<>();
+            r.add(word);
+            modifiedLists.add(r);
+        }else{
+            for (List<String> innerList : suffixWays) {
+                List<String> modifiedInnerList = new ArrayList<>(innerList); // Copy the inner list
+                modifiedInnerList.add(word); // Add "pig" as the first element
+                modifiedLists.add(modifiedInnerList);
+            }
+        }
+
+        return modifiedLists;
     }
 }

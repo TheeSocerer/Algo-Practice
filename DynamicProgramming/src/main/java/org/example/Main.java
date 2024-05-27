@@ -63,7 +63,7 @@ public class Main {
                 "eeee",
                 "eeeee",
                 "eeeeeee"},new Hashtable<>()));
-
+        System.out.println(c.doAllConstructMemo("purple",new String[]{"purp","p","ur","le","purpl","purpl"}));
 
     }
 
