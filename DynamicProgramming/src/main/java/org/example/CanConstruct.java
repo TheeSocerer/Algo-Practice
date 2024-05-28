@@ -98,7 +98,7 @@ public class CanConstruct {
     public List<List<String>> doAllConstructMemo(String target, String[] words){
 
         if(target.isEmpty()){
-            return new ArrayList<>();
+            return new ArrayList<>(List.of(new ArrayList<>()));
         }
         List<List<String>> result = new ArrayList<>();
         for (String word : words) {
@@ -107,30 +107,19 @@ public class CanConstruct {
                 System.out.println(suffix);
                 List<List<String>> suffixWays = doAllConstructMemo(suffix, words);
 
-                List<List<String>> targetWays = addPrefix(suffixWays,word,target);
-                System.out.println(targetWays);
+                addPrefix(suffixWays,word);
+                System.out.println(suffixWays);
 
-                result.addAll(targetWays);
+                result.addAll(suffixWays);
 
 
             }
         }
         return result;
     }
-    private List<List<String>> addPrefix(List<List<String>> suffixWays, String word, String target){
-        List<List<String>> modifiedLists = new ArrayList<>();
-        if(suffixWays){
-            List<String> r = new ArrayList<>();
-            r.add(word);
-            modifiedLists.add(r);
-        }else{
-            for (List<String> innerList : suffixWays) {
-                List<String> modifiedInnerList = new ArrayList<>(innerList); // Copy the inner list
-                modifiedInnerList.add(word); // Add "pig" as the first element
-                modifiedLists.add(modifiedInnerList);
-            }
+    private void addPrefix(List<List<String>> suffixWays, String word) {
+        for (List<String> innerList : suffixWays) {
+            innerList.add(0, word); // Add the word as the first element
         }
-
-        return modifiedLists;
     }
 }
